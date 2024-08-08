@@ -1,0 +1,60 @@
+:root {
+    --main-color: #800000;
+    --secondary-color: color-mix(in srgb, var(--main-color) 100%, white 30%);
+    --black-color: #000;
+    --board-color-main: #B58863;
+    --board-color-white: #F0D9B5;
+}
+
+body {
+    background-color: var(--black-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: fit-content;
+}
+
+.square {
+    width: 80px;
+    height: 80px;
+    display: grid;
+    place-items: center;
+    position: relative;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        user-select: none;
+        position: relative;
+        z-index: 9999;
+    }
+}
+
+.available-move::after {
+    position: absolute;
+    content: '';
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: color-mix(in srgb, var(--main-color) 100%, black 90%);
+    z-index: 99999;
+}
+
+.black-square {
+    background-color: var(--board-color-main);
+}
+
+.white-square {
+    background-color: var(--board-color-white);
+}
+
+.last-move {
+    background-color: var(--secondary-color);
+    /* background-color: color-mix(in srgb, var(--main-color) 0%, transparent); */
+}
