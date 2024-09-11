@@ -12,34 +12,32 @@ const boardPieces = {
     'a7': { type: 'p', color: 'b' },
     'b7': { type: 'p', color: 'b' },
     'c7': { type: 'p', color: 'b' },
-    // 'd7': { type: 'p', color: 'b' },
+    'd7': { type: 'p', color: 'b' },
     'e7': { type: 'p', color: 'b' },
     'f7': { type: 'p', color: 'b' },
     'g7': { type: 'p', color: 'b' },
     'h7': { type: 'p', color: 'b' },
 
-    // 'a2': { type: 'p', color: 'w' },
-    // 'b2': { type: 'p', color: 'w' },
-    // 'c2': { type: 'p', color: 'w' },
-    // 'd2': { type: 'p', color: 'w' },
-    // 'e2': { type: 'p', color: 'w' },
-    // 'f2': { type: 'p', color: 'w' },
-    // 'g2': { type: 'p', color: 'w' },
-    // 'h2': { type: 'p', color: 'w' },
+    'a2': { type: 'p', color: 'w' },
+    'b2': { type: 'p', color: 'w' },
+    'c2': { type: 'p', color: 'w' },
+    'd2': { type: 'p', color: 'w' },
+    'e2': { type: 'p', color: 'w' },
+    'f2': { type: 'p', color: 'w' },
+    'g2': { type: 'p', color: 'w' },
+    'h2': { type: 'p', color: 'w' },
 
-    // 'a1': { type: 'r', color: 'w' },
-    // 'b1': { type: 'n', color: 'w' },
-    // 'c1': { type: 'b', color: 'w' },
-    // 'd1': { type: 'q', color: 'w' },
+    'a1': { type: 'r', color: 'w' },
+    'b1': { type: 'n', color: 'w' },
+    'c1': { type: 'b', color: 'w' },
+    'd1': { type: 'q', color: 'w' },
     'e1': { type: 'k', color: 'w' },
-    // 'f1': { type: 'b', color: 'w' },
-    // 'g1': { type: 'n', color: 'w' },
-    // 'h1': { type: 'r', color: 'w' }
+    'f1': { type: 'b', color: 'w' },
+    'g1': { type: 'n', color: 'w' },
+    'h1': { type: 'r', color: 'w' }
 }
 let draggedPiece = null
 let turnToMove = 'w'
-let attackedSquaresByBlack = new Set()
-let attackedSquaresByWhite = new Set()
 // Classes
 
 class Figure {
@@ -282,10 +280,11 @@ class King extends Figure {
         super.canMoveToSquare(moves, letters[letterIndex - 1].concat(number))
         super.canMoveToSquare(moves, letters[letterIndex + 1].concat(number))
 
-        const attackedSquares = this.color == 'b' ? attackedSquaresByWhite : attackedSquaresByBlack
+        const attackedSquares = 1
 
         console.log(attackedSquares)
-        return moves.filter((move) => !attackedSquares.has(move))
+        return moves
+        // return moves.filter((move) => !attackedSquares.has(move))
     }
 }
 
@@ -323,7 +322,6 @@ function initFigures() {
         squareDiv.appendChild(figureImg)
         const figure = createFigure(piece, square)
         boardPieces[square] = figure
-        figure.color == 'b' ? attackedSquaresByBlack.add(...figure.availableMoves) : attackedSquaresByBlack.add(...figure.availableMoves)
 
         // figureImg.addEventListener('click', () => {
         //     showAvailableMoves(figure)
@@ -353,7 +351,6 @@ function onSquareDrop(event) {
     target.innerHTML = null
     target.appendChild(draggedPiece.html)
     turnToMove = draggedPiece.piece.color == 'b' ? 'w' : 'b'
-    draggedPiece.piece.color == 'b' ? attackedSquaresByBlack.add(...draggedPiece.piece.availableMoves) : attackedSquaresByBlack.add(...draggedPiece.piece.availableMoves)
 }
 
 function createFigure(piece, square) {
